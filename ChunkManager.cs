@@ -18,7 +18,7 @@ public partial class ChunkManager : Node
 
 	[Export] public PackedScene ChunkScene { get; set; }
 
-	private int _width = 5;
+	private int _width = 10;
 
 	private Vector3 _playerPosition;
 	private object _playerPositionLock = new();
