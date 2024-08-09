@@ -1,0 +1,62 @@
+[gd_scene load_steps=16 format=3 uid="uid://bq6mbk7kduc6a"]
+
+[ext_resource type="Script" path="res://BlockManager.cs" id="1_36oss"]
+[ext_resource type="Script" path="res://ChunkManager.cs" id="1_imeek"]
+[ext_resource type="Script" path="res://Block.cs" id="2_kg3ew"]
+[ext_resource type="PackedScene" uid="uid://cyydyqlkt31jb" path="res://Chunk.tscn" id="2_nhecv"]
+[ext_resource type="Texture2D" uid="uid://bjesup1uraqhf" path="res://textures/stone.png" id="3_sf6a5"]
+[ext_resource type="Texture2D" uid="uid://ifrpqts5bvwc" path="res://textures/dirt.png" id="4_cejub"]
+[ext_resource type="Texture2D" uid="uid://b6bue7b5r173a" path="res://textures/grass.png" id="5_secrd"]
+[ext_resource type="PackedScene" uid="uid://b3wlasqejn5my" path="res://Player.tscn" id="7_r1woe"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r11a5"]
+
+[sub_resource type="Sky" id="Sky_cbgnv"]
+sky_material = SubResource("ProceduralSkyMaterial_r11a5")
+
+[sub_resource type="Environment" id="Environment_63dpw"]
+background_mode = 2
+sky = SubResource("Sky_cbgnv")
+
+[sub_resource type="Resource" id="Resource_7n4it"]
+script = ExtResource("2_kg3ew")
+
+[sub_resource type="Resource" id="Resource_a5vy8"]
+script = ExtResource("2_kg3ew")
+Texture = ExtResource("3_sf6a5")
+
+[sub_resource type="Resource" id="Resource_st18r"]
+script = ExtResource("2_kg3ew")
+Texture = ExtResource("4_cejub")
+
+[sub_resource type="Resource" id="Resource_4yf4b"]
+script = ExtResource("2_kg3ew")
+Texture = ExtResource("4_cejub")
+TopTexture = ExtResource("5_secrd")
+BottomTexture = ExtResource("4_cejub")
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_63dpw")
+
+[node name="BlockManager" type="Node" parent="."]
+script = ExtResource("1_36oss")
+Air = SubResource("Resource_7n4it")
+Stone = SubResource("Resource_a5vy8")
+Dirt = SubResource("Resource_st18r")
+Grass = SubResource("Resource_4yf4b")
+
+[node name="ChunkManager" type="Node" parent="."]
+script = ExtResource("1_imeek")
+ChunkScene = ExtResource("2_nhecv")
+
+[node name="Chunk" parent="." instance=ExtResource("2_nhecv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -80)
+
+[node name="Player" parent="." instance=ExtResource("7_r1woe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.54139, 37.2447, 3.28951)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.971097, -0.21924, 0.0943653, 0, 0.395353, 0.918529, -0.238686, -0.891981, 0.383926, 0, 0, 0)
+shadow_enabled = true
